@@ -1,0 +1,427 @@
+%% abtex2-modelo-artigo.tex, v-1.9.5 laurocesar
+%% Copyright 2012-2015 by abnTeX2 group at http://www.abntex.net.br/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	article,			% indica que é um artigo acadêmico
+	11pt,				% tamanho da fonte
+	oneside,			% para impressão apenas no verso. Oposto a twoside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	brazil,				% o último idioma é o principal do documento
+	sumario=tradicional
+	]{abntex2}
+
+
+% ---
+% PACOTES
+% ---
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+% ---
+		
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+		
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Algoritmos de Ordenação}
+\autor{Fernando Barbosa Neto}
+\local{Brasil}
+\data{2015}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={Algoritmos de Ordenação},
+	    pdfcreator={Fernando Barbosa Neto},
+		pdfkeywords={ordenação}{algoritmos}{C}{estrutura de dados}{quicksort}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+\maketitle
+
+% resumo em português
+\begin{resumoumacoluna}
+ Este artigo apresenta o comparativo entre diversos algoritmos de ordenação. Os algoritmos de ordenação implementados e a serem comparados são: \emph{bubblesort}, \emph{shakesort}, \emph{insertionsort}, \emph{shellsort}, \emph{selectionsort}, \emph{ranksort}, \emph{quicksort} e variações, \emph{mergesort}, \emph{heapsort}, \emph{radixsort} e \emph{radixsort} binário.
+ 
+ \vspace{\onelineskip}
+ 
+ \noindent
+ \textbf{Palavras-chave}: algoritmos de ordenação. estrutura de dados. C.
+\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\section*{Introdução}
+\addcontentsline{toc}{section}{Introdução}
+
+Neste artigo técnico serão tratadas as implementações de métodos de ordenação de inteiros, as quais também hão de ser comparadas.
+
+Foi também desenvolvido um gerador de inteiros a fim de gerar os casos para teste para o comparativo dos algoritmos.
+
+Os algoritmos de ordenação aqui tratados são: \emph{bubblesort}, \emph{shakesort}, \emph{insertionsort}, \emph{shellsort}, \emph{selectionsort}, \emph{ranksort}, \emph{quicksort} com quatro formas de eleição pivotal, \emph{mergesort}, \emph{heapsort}, \emph{radixsort} e \emph{radixsort} binário.
+
+% ----------------------------------------------------------
+% Seção de explicações
+% ----------------------------------------------------------
+\section{Implementação}
+
+\subsection{Gerador de números}
+
+O gerador de números pode ser encontrado no arquivo gera.c, possuindo objetivo de retornar números inteiros não-negativos de forma aleatória, crescente ou decrescente.
+
+Ao compilá-lo, o que pode ser feito com o comando \emph{make all} no terminal, este programa possui o seguinte comportamento: \emph{./gera -a n} gerará n números em ordem aleatória, \emph{./gera -c n} gerará n números em ordem crescente e \emph{./gera -d n} gerará n números em ordem descrescente. Os números gerados serão enviados para stdout, separados por quebras de linha.
+
+Este gerador é um módulo auxiliar, uma vez que os dados obtidos por seu algoritmo serão utilizados para os algoritmos de ordenação que serão explanados nas subseções conseguintes a esta.
+
+\subsection{Algoritmos de Ordenação}
+
+Os algoritmos de ordenação podem ser encontrados em sorts.c e as assinaturas de suas funções em sorts.h. Os algoritmos implementados são: \emph{bubblesort}, \emph{shakesort}, \emph{insertionsort}, \emph{shellsort}, \emph{selectionsort}, \emph{ranksort} (sem comparação de chaves), \emph{quicksort}, \emph{mergesort}, \emph{heapsort}, \emph{radixsort} (sem comparação de chaves e utilizando o \emph{bucketsort}) e \emph{radixsort} binário (sem comparação de chaves e utilizando o \emph{bucketsort}).
+
+Em especial, foram criadas quatro implementações para o algoritmo \emph{quicksort}, o qual faz uso de um método de particionamento que, determinado um pivô, pode gerar uma partição de elementos maiores ou iguais ao pivô e outra partição cujos elementos são menores ou iguais ao pivô. Destarte, foram abordados quatro critérios para escolha do pivô: o primeiro elemento do bloco, o elemento central do bloco, um elemento aleatório e a mediana de três elementos, neste caso os elementos são o primeiro, o central e o último.
+
+As explicações e detalhes dos algoritmos e seus respectivos pseudo-códigos podem ser encontrados na página da Wikipedia em http://en.wikipedia.org.
+
+\subsection{Formatação de Entrada e Saída}
+
+Um Makefile foi posto no diretório do projeto de forma que, ao utilizar o comando \emph{make all} via terminal, as devidas compilações sejam realizadas, gerando os executáveis \emph{gera} e \emph{trab4}. Os detalhes da entrada, execução e saída de \emph{gera}, o qual corresponde ao módulo de gerador de números, pode ser encontrada em subseção anterior.
+
+O módulo de ordenação pode ser executado através do comando \emph{./trab4 algoritmo n} no terminal, onde n é o número de elementos a serem ordenados e algoritmo é o algoritmo a ser utilizado na ordenação, cujas opções são: bubble para o \emph{bubblesort}, shake para o \emph{shakesort}, insertion para o \emph{insertionsort}, shell para o \emph{shellsort}, selection para o \emph{selectionsort}, rank para o \emph{ranksort}, quickprimeiro para o \emph{quicksort} com primeiro elemento da partição como pivô, quickcentral para o \emph{quicksort} com elemento central da partição como pivô, quickrandom para o \emph{quicksort} com um elemento aleatório como pivô, quickmediana3 para o \emph{quicksort} com a mediana de três elementos como pivô, merge para o \emph{mergesort}, heap para o \emph{heapsort}, radix para o \emph{radixsort} e radixbin para o \emph{radixsort} binário.
+
+A entrada dos inteiros deve realizada por stdin, podendo utilizar o resultado obtido por \emph{gera}, e a saída enviará para stdout a sequência ordenada dos números, cada número em uma linha.
+
+\section{Análise}
+
+\subsection{Quanto ao ambiente}
+
+Para medição e comparação dos tempos, foi utilizada a função \emph{time} do bash em um computador com a seguinte configuração: Notebook Dell Vostro 3460, com Sistema Operacional Ubuntu 15.04 64-bit, Memória de 5.7 GiB, processador Intel® Core™ i5-3230M CPU @ 2.60GHz x 4 e placa de vídeo GeForce GT 630M/PCIe/SSE2. No terminal foram rodados os seguintes comandos: \emph{./gera modo n > entrada.txt} para o gerador de números, onde modo é o modo de geração dos números e n é a quantidade de números, e \emph{time ./trab4 algoritmo n < entrada.txt > saida.txt} para os algoritmos de ordenação, onde algortimo é o algoritmo a ser testado, n é a quantidade números para entrada e entrada.txt é o resultado obtivo pelo gerador. O tempo retornado pela função \emph{time} a ser avaliado é o de \emph{user}.
+
+Nas próximas subseções serão apresentados os dados para cada modo de geração de inteiros. Os algoritmos estão listados conforme sua opções para execução. Serão utilizados, para cada tipo de entrada, 3 casos teste: n1, n2 e n3 números com os respectivos tempos de execução t1, t2 e t3. Para o cálculo destes tempos será calculada a média entre dois tempos de execução com os mesmos parâmetros enviados às funções.
+
+\subsection{Entrada aleatória}
+
+\begin{table}[!h]
+\centering
+\caption{Tempos com entrada aleatória}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Algoritmo     & n1 & t1 & n2 & t2 & n3 & t3 \\ \hline
+bubble        & 1000   & 0m0.004s   & 10000   & 0m0.332s   & 100000   & 0m28.964s   \\ \hline
+shake         & 1000   & 0m0.008s   & 10000   & 0m0.338s   & 100000   & 0m26.736s   \\ \hline
+insertion     & 1000   & 0m0.002s   & 10000   & 0m0.128s   & 100000   & 0m6.972s   \\ \hline
+shell         & 1000   & 0m0.000s   & 10000   & 0m0.012s   & 100000   & 0m0.096s   \\ \hline
+selection     & 1000   & 0m0.004s   & 10000   & 0m0.212s   & 100000   & 0m13.762s   \\ \hline
+rank          & 1000   & 0m0.012s   & 10000   & 0m0.586s   & 100000   & 0m50.922s   \\ \hline
+quickprimeiro & 1000   & 0m0.002s   & 10000   & 0m0.134s   & 100000   & 0m7.270s   \\ \hline
+quickcentral  & 1000   & 0m0.000s   & 10000   & 0m0.104s   & 100000   & 0m3.996s   \\ \hline
+quickrandom   & 1000   & 0m0.000s   & 10000   & 0m0.092s   & 100000   & 0m6.254s   \\ \hline
+quickmediana3 & 1000   & 0m0.000s   & 10000   & 0m0.084s   & 100000   & 0m3.146s  \\ \hline
+merge         & 1000   & 0m0.000s   & 10000   & 0m0.012s   & 100000   & 0m0.090s   \\ \hline
+heap          & 1000   & 0m0.000s   & 10000   & 0m0.012s   & 100000   & 0m0.084s   \\ \hline
+radix         & 1000   & 0m0.000s   & 10000   & 0m0.010s   & 100000   & 0m0.070s   \\ \hline
+radixbin      & 1000   & 0m0.004s   & 10000   & 0m0.032s   & 100000   & 0m0.190s   \\ \hline
+\end{tabular}
+\end{table}
+
+Para a entrada aleatória, pode-se perceber pela Tabela 1 que o melhor e o pior caso foram o \emph{radixsort} e o \emph{ranksort}, respectivamente. Entre as implementações do \emph{quicksort}, a mais rápida foi a do modo quickmediana3 e a mais lenta foi a do modo quickprimeiro.
+
+\subsection{Entrada crescente}
+
+\begin{table}[!h]
+\centering
+\caption{Tempos com entrada crescente}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Algoritmo     & n1 & t1 & n2 & t2 & n3 & t3 \\ \hline
+bubble        & 1000   & 0m0.004s   & 10000   & 0m0.190s   & 100000   & 0m11.882s   \\ \hline
+shake         & 1000   & 0m0.000s   & 10000   & 0m0.006s   & 100000   & 0m0.038s   \\ \hline
+insertion     & 1000   & 0m0.000s   & 10000   & 0m0.006s   & 100000   & 0m0.044s   \\ \hline
+shell         & 1000   & 0m0.002s   & 10000   & 0m0.004s   & 100000   & 0m0.056s   \\ \hline
+selection     & 1000   & 0m0.004s   & 10000   & 0m0.122s   & 100000   & 0m13.778s   \\ \hline
+rank          & 1000   & 0m0.006s   & 10000   & 0m0.322s   & 100000   & 0m24.110s   \\ \hline
+quickprimeiro & 1000   & 0m0.004s   & 10000   & 0m0.202s   & 100000   & 0m12.574s   \\ \hline
+quickcentral  & 1000   & 0m0.004s   & 10000   & 0m0.198s   & 100000   & 0m12.580s   \\ \hline
+quickrandom   & 1000   & 0m0.004s   & 10000   & 0m0.196s   & 100000   & 0m12.394s   \\ \hline
+quickmediana3 & 1000   & 0m0.004s   & 10000   & 0m0.202s   & 100000   & 0m12.450s   \\ \hline
+merge         & 1000   & 0m0.000s   & 10000   & 0m0.008s   & 100000   & 0m0.068s   \\ \hline
+heap          & 1000   & 0m0.000s   & 10000   & 0m0.008s   & 100000   & 0m0.072s   \\ \hline
+radix         & 1000   & 0m0.000s   & 10000   & 0m0.008s   & 100000   & 0m0.058s   \\ \hline
+radixbin      & 1000   & 0m0.000s   & 10000   & 0m0.016s   & 100000   & 0m0.126s   \\ \hline
+\end{tabular}
+\end{table}
+
+Para a entrada crescente, pode-se perceber pela Tabela 2 que o melhor e o pior caso foram o \emph{shakesort} e o \emph{ranksort}, respectivamente. Entre as implementações do \emph{quicksort}, a mais rápida foi a do modo quickrandom, apesar da baixa variação de tempo de processamento.
+
+\subsection{Entrada decrescente}
+
+\begin{table}[!h]
+\centering
+\caption{Tempos com entrada decrescente}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Algoritmo     & n1 & t1 & n2 & t2 & n3 & t3 \\ \hline
+bubble        & 1000   & 0m0.006s   & 10000   & 0m0.290s   & 100000   & 0m21.546s   \\ \hline
+shake         & 1000   & 0m0.012s   & 10000   & 0m0.452s   & 100000   & 0m37.764s   \\ \hline
+insertion     & 1000   & 0m0.004s   & 10000   & 0m0.210s   & 100000   & 0m13.866s   \\ \hline
+shell         & 1000   & 0m0.002s   & 10000   & 0m0.006s   & 100000   & 0m0.058s   \\ \hline
+selection     & 1000   & 0m0.004s   & 10000   & 0m0.200s   & 100000   & 0m12.926s   \\ \hline
+rank          & 1000   & 0m0.008s   & 10000   & 0m0.320s   & 100000   & 0m24.512s   \\ \hline
+quickprimeiro & 1000   & 0m0.008s   & 10000   & 0m0.398s   & 100000   & 0m32.798s   \\ \hline
+quickcentral  & 1000   & 0m0.008s   & 10000   & 0m0.404s   & 100000   & 0m33.254s   \\ \hline
+quickrandom   & 1000   & 0m0.008s   & 10000   & 0m0.402s   & 100000   & 0m32.896s   \\ \hline
+quickmediana3 & 1000   & 0m0.008s   & 10000   & 0m0.400s   & 100000   & 0m32.848s   \\ \hline
+merge         & 1000   & 0m0.000s   & 10000   & 0m0.010s   & 100000   & 0m0.064s   \\ \hline
+heap          & 1000   & 0m0.000s   & 10000   & 0m0.006s   & 100000   & 0m0.070s   \\ \hline
+radix         & 1000   & 0m0.002s   & 10000   & 0m0.004s   & 100000   & 0m0.060s   \\ \hline
+radixbin      & 1000   & 0m0.000s   & 10000   & 0m0.016s   & 100000   & 0m0.128s   \\ \hline
+\end{tabular}
+\end{table}
+
+Para a entrada decrescente, pode-se perceber pela Tabela 3 que os melhores casos foram o \emph{radixsort} e \emph{shellsort}, com pouca diferença de desempenho entre si, e o pior caso foi o \emph{shakesort}. Entre as implementações do \emph{quicksort}, a mais rápida foi a do modo quickprimeiro e a mais lenta foi a do modo quickcentral.
+
+% ---
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% ---
+\bookmarksetup{startatroot}% 
+% ---
+
+% ---
+% Conclusão
+% ---
+\section*{Considerações finais}
+\addcontentsline{toc}{section}{Considerações finais}
+
+Através das implementações e do processo de análise, é possível notar que não basta analisar propriamente o algoritmo utilizando, mas é primordial conhecer as características dos dados a serem ordenados. Um exemplo importante que sustenta este ponto é a avaliação da performance do \emph{shakesort}: possuiu o melhor desempenho na entrada crescente e o pior na decrescente.
+
+É importante destacar que os melhores algoritmos, de maneira geral, em termos de velocidade de execução foram o \emph{radixsort} e o \emph{shellshort}. Nenhuma de suas execuções, em todos os casos testados, passaram de 0.1s de tempo de processamento.
+
+Outro destaque a ser feito é a posição de pior desempenho entre os testes, tendo o \emph{ranksort} como contemplado neste quesito. Na entrada decrescente este método de ordenação não chegou a ser o pior, mas deixou a desejar.
+
+Entre as implementações do \emph{quicksort}, houve pouca diferença nos resultados para as entradas crescentes e decrescentes, porém o modo de escolha do pivô com o cálculo da mediana de três elementos ofereceu a melhor perfomance, agora com diferença significativa ao comparar com os outros métodos de escolha pivotal, na entrada aleatória.
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ---
+% Título e resumo em língua estrangeira
+% ---
+
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+
+% titulo em inglês
+\titulo{Sorting Algorithms}
+\emptythanks
+\maketitle
+
+% resumo em português
+\renewcommand{\resumoname}{Abstract}
+\begin{resumoumacoluna}
+ \begin{otherlanguage*}{english}
+   This essay presents the comparison between several sorting algorithms. The sorting algorithms implemented and to be compared are: \emph{bubblesort}, \emph{shakesort}, \emph{insertionsort}, \emph{shellsort}, \emph{selectionsort}, \emph{ranksort}, \emph{quicksort} e variações, \emph{mergesort}, \emph{heapsort}, \emph{radixsort} e \emph{radixsort} binário.
+
+   \vspace{\onelineskip}
+ 
+   \noindent
+   \textbf{Keywords}: sorting algorithm. data structure. C.
+ \end{otherlanguage*}  
+\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{abntex2-modelo-references}
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Há diversas soluções prontas para glossário em LaTeX. 
+% Consulte o manual do abnTeX2 para obter sugestões.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+\begin{apendicesenv}
+
+
+
+\end{apendicesenv}
+% ---
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+\cftinserthook{toc}{AAA}
+% ---
+% Inicia os anexos
+% ---
+%\anexos
+\begin{anexosenv}
+
+
+
+\end{anexosenv}
+
+\end{document}
